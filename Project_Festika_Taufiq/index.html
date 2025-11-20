@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Belajar RPL</title>
+<style>
+:root{--primary:#1e3a8a;--accent:#ffca7a;--muted:#6b7280}
+*{box-sizing:border-box}
+body{margin:0;font-family:Inter,Arial,Helvetica,sans-serif;background:#f5f7fb;color:#0b1a2b;overflow-x:hidden}
+body::before{content:"";position:fixed;top:0;left:0;width:100%;height:100%;background:url('smk.png') center/30% no-repeat;opacity:0.03;pointer-events:none;z-index:-1}
+header{position:relative;z-index:10000;background:var(--primary);padding:14px 20px;color:white;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.logo-box{display:flex;align-items:center;gap:12px}
+.logo-box img{width:52px;height:52px;border-radius:8px;background:white;object-fit:cover}
+nav{display:flex;gap:12px;align-items:center}
+nav a{color:white;font-weight:700;margin-left:6px;cursor:pointer;text-decoration:none;padding:8px 10px;border-radius:8px}
+nav a:hover{background:rgba(255,255,255,0.06)}
+.container{max-width:1100px;margin:28px auto;padding:0 18px}
+.hero{background:linear-gradient(135deg,#1e3a8a,#15306b);padding:28px;border-radius:14px;color:white;text-align:center}
+.hero h1{margin:0;font-size:28px}
+.lead{margin:0;color:white}
+.mapel-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;margin-top:16px}
+.card{background:white;padding:18px;border-radius:12px;box-shadow:0 6px 18px rgba(10,20,40,0.06);cursor:pointer;font-weight:800;text-align:center;transition:transform .18s,box-shadow .18s;color:#062a44}
+.card:hover{transform:translateY(-6px);box-shadow:0 14px 30px rgba(10,20,40,0.12)}
+.materi-box{background:white;padding:22px;border-radius:12px;box-shadow:0 8px 24px rgba(10,20,40,0.06);margin-top:18px}
+.materi-teks{white-space:pre-wrap;line-height:1.6;color:#10243a}
+.quiz-box{background:#eef2ff;padding:12px;border-radius:10px;margin-top:12px}
+.btn{padding:10px 18px;border:none;border-radius:8px;font-weight:700;cursor:pointer}
+.primary{background:var(--primary);color:white}
+.ghost{background:transparent;border:2px solid rgba(0,0,0,0.06)}
+.nav-buttons{display:flex;justify-content:space-between;margin-top:20px;gap:12px}
+.ucapan-card{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%) scale(.98);background:#fff;padding:20px;border-radius:12px;width:360px;max-height:80vh;overflow:auto;text-align:center;box-shadow:0 18px 48px rgba(5,15,40,0.25);z-index:9999}
+.ucapan-emoji{font-size:34px;margin-bottom:8px}
+@keyframes pop{0%{opacity:0;transform:translate(-50%,-50%) scale(.9)}60%{opacity:1;transform:translate(-50%,-50%) scale(1.02)}100%{opacity:1;transform:translate(-50%,-50%) scale(1)}}
+footer{width:100%;background:var(--primary);color:white;text-align:center;padding:28px 0;border-top:4px solid rgba(255,255,255,0.08);margin-top:50px}
+footer .sosmed{display:flex;justify-content:center;align-items:center;gap:18px;margin:14px 0}
+footer .sosmed img{width:34px;height:34px;object-fit:contain;transition:transform .2s}
+footer .sosmed img:hover{transform:scale(1.18)}
+@media(max-width:600px){footer{padding:24px 10px}footer .sosmed img{width:28px;height:28px}}
+.fade-page{animation:fadeIn .28s}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:680px){.hero h1{font-size:20px}.logo-box img{width:44px;height:44px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo-box">
+    <img src="smk.png" alt="logo sekol" />
+    <div>
+      <strong>Belajar RPL</strong><br><small style="opacity:.9">Interaktif</small>
+    </div>
+  </div>
+  <nav>
+    <a onclick="showHome()">Home</a>
+    <a onclick="startMapel('KK1')">KK1</a>
+    <a onclick="startMapel('KK2')">KK2</a>
+    <a onclick="startMapel('KK3')">KK3</a>
+    <a onclick="startMapel('MP')">MP</a>
+  </nav>
+</header>
+
+<main class="container">
+  <section class="hero fade-page">
+    <h1>Selamat Datang di Pembelajaran RPL Interaktif 🎓</h1>
+    <p class="lead">Platform belajar yang membantu kamu memahami database, pemrograman web, pembuatan aplikasi, dan logika pemrograman dengan cara interaktif. Pilih mata pelajaran untuk mulai.</p>
+  </section>
+
+  <section id="home" class="fade-page">
+    <h2 class="section-title">Mata Pelajaran</h2>
+    <p class="lead">Klik salah satu untuk membaca materi dan mengerjakan kuis interaktif.</p>
+
+    <div class="mapel-list">
+      <div class="card" onclick="startMapel('KK1')">
+        <img src="phpmyadmin-removebg-preview.png" style="width:48px;height:48px;object-fit:cover;border-radius:8px;margin-bottom:8px"><br>
+        KK1 — Database & phpMyAdmin
+      </div>
+      <div class="card" onclick="startMapel('KK2')">
+        <img src="Laravel.svg.png" style="width:48px;height:48px;object-fit:cover;border-radius:8px;margin-bottom:8px"><br>
+        KK2 — Laravel 12 (Web App)
+      </div>
+      <div class="card" onclick="startMapel('KK3')">
+        <img src="Kotlin_Icon.png" style="width:48px;height:48px;object-fit:cover;border-radius:8px;margin-bottom:8px"><br>
+        KK3 — Kotlin (Dasar Android)
+      </div>
+      <div class="card" onclick="startMapel('MP')">
+        <img src="kodulaar.png" style="width:48px;height:48px;object-fit:cover;border-radius:8px;margin-bottom:8px"><br>
+        MP — Kodular (No-code App)
+      </div>
+    </div>
+  </section>
+
+  <div id="materiArea"></div>
+</main>
+
+<script>
+// --- data (materi & soal) ---
+const bankSoal = {
+  KK1: [
+    {q:"Apa itu database?",a:"A",options:{A:"Kumpulan data terstruktur",B:"Bahasa pemrograman",C:"Sistem operasi",D:"Editor teks"}},
+    {q:"DBMS yang umum digunakan?",a:"B",options:{A:"Python",B:"MySQL",C:"HTML",D:"CSS"}},
+    {q:"Query untuk menampilkan data?",a:"C",options:{A:"DELETE",B:"UPDATE",C:"SELECT",D:"OPEN"}},
+    {q:"Apa itu primary key?",a:"D",options:{A:"Tipe kolom",B:"Index cepat",C:"Relasi tabel",D:"Identifikasi unik tiap baris"}},
+    {q:"phpMyAdmin berguna untuk?",a:"A",options:{A:"Mengelola database via web",B:"Membuat gambar",C:"Edit video",D:"Design UI"}},
+    {q:"Tipe data bilangan integer di SQL?",a:"B",options:{A:"VARCHAR",B:"INT",C:"TEXT",D:"DATE"}},
+    {q:"Perintah menambah data di SQL?",a:"C",options:{A:"DROP",B:"ALTER",C:"INSERT",D:"SHOW"}},
+    {q:"Ekstensi file dump MySQL biasanya?",a:"A",options:{A:".sql",B:".php",C:".css",D:".json"}},
+    {q:"Relasi one-to-many artinya?",a:"D",options:{A:"Satu kolom",B:"Satu user satu akun",C:"Many-to-many",D:"Satu entitas memiliki banyak entitas lain"}},
+    {q:"Fungsi klausa WHERE?",a:"B",options:{A:"Mengurutkan",B:"Memfilter data",C:"Menggabungkan tabel",D:"Menghapus database"}}
+  ],
+  KK2: [
+    {q:"Laravel menggunakan arsitektur apa?",a:"A",options:{A:"MVC",B:"MVVM",C:"MVP",D:"OOP murni"}},
+    {q:"Perintah artisan untuk membuat controller?",a:"A",options:{A:"php artisan make:controller",B:"php artisan new:controller",C:"laravel controller:create",D:"php artisan craft:controller"}},
+    {q:"Nama file environment Laravel?",a:"A",options:{A:".env",B:"env.json",C:"config.env",D:"environment.laravel"}},
+    {q:"Fungsi artisan migrate?",a:"A",options:{A:"Menjalankan migration",B:"Menginstall Laravel",C:"Menjalankan server",D:"Membuat controller"}},
+    {q:"Folder tempat views Laravel?",a:"A",options:{A:"resources/views",B:"app/views",C:"public/views",D:"layouts/views"}},
+    {q:"Apa itu Eloquent ORM?",a:"A",options:{A:"Model bawaan Laravel",B:"Template engine",C:"Routing library",D:"Middleware"}},
+    {q:"Route GET ditulis di file apa?",a:"A",options:{A:"routes/web.php",B:"routes/api.php",C:"routes/get.php",D:"routes/main.php"}},
+    {q:"Fungsi middleware adalah?",a:"A",options:{A:"Filter request",B:"Membuat view",C:"Mengelola database",D:"Membuat migration"}},
+    {q:"Format template engine Laravel?",a:"A",options:{A:"Blade .blade.php",B:"Twig .twig",C:"Vue .vue",D:"Mustache .ms"}},
+    {q:"Apa itu migration?",a:"A",options:{A:"Struktur tabel database",B:"Template view",C:"File routing",D:"Library keamanan"}}
+  ],
+  KK3: [
+    {q:"Kotlin dikembangkan oleh siapa?",a:"A",options:{A:"JetBrains",B:"Google",C:"Oracle",D:"Meta"}},
+    {q:"Tipe data pecahan di Kotlin?",a:"A",options:{A:"Double",B:"Int",C:"Boolean",D:"Char"}},
+    {q:"Keyword untuk membuat fungsi?",a:"A",options:{A:"fun",B:"func",C:"def",D:"method"}},
+    {q:"Keyword val berarti?",a:"A",options:{A:"Variabel tidak dapat diubah",B:"Variabel dapat diubah",C:"Fungsi",D:"Class"}},
+    {q:"Keyword var berarti?",a:"A",options:{A:"Variabel dapat diubah",B:"Variabel konstan",C:"Class",D:"Object"}},
+    {q:"Apa itu class?",a:"A",options:{A:"Blueprint objek",B:"Fungsi",C:"Tipe data primitif",D:"Library"}},
+    {q:"Operator perbandingan?",a:"A",options:{A:"==",B:"++",C:"..",D:">="}},
+    {q:"Fungsi main() digunakan sebagai?",a:"A",options:{A:"Entry point",B:"Loop utama",C:"Debugger",D:"Compiler"}},
+    {q:"Struktur percabangan dasar?",a:"A",options:{A:"if",B:"switch",C:"case",D:"choose"}},
+    {q:"Untuk perulangan digunakan?",a:"A",options:{A:"for",B:"jump",C:"loop",D:"repeatUntil"}}
+  ],
+  MP: [
+    {q:"Kodular digunakan untuk membuat apa?",a:"A",options:{A:"Aplikasi Android",B:"Aplikasi iOS",C:"Website",D:"Game PC"}},
+    {q:"Kodular merupakan editor berbasis?",a:"A",options:{A:"Block programming",B:"Python",C:"C++",D:"Terminal"}},
+    {q:"Komponen untuk menampilkan teks?",a:"A",options:{A:"Label",B:"Notifier",C:"Image",D:"Button"}},
+    {q:"Komponen untuk aksi klik?",a:"A",options:{A:"Button",B:"Label",C:"Clock",D:"Switch"}},
+    {q:"Tab untuk membuat logika?",a:"A",options:{A:"Blocks",B:"Designer",C:"Assets",D:"Logic UI"}},
+    {q:"Format output Kodular?",a:"A",options:{A:"APK",B:"IPA",C:"EXE",D:"HTML"}},
+    {q:"Komponen untuk menampilkan list data?",a:"A",options:{A:"ListView",B:"ListPicker",C:"Notifier",D:"Card"}},
+    {q:"Komponen untuk menampilkan gambar?",a:"A",options:{A:"Image",B:"PictureBox",C:"Logo",D:"Photo"}},
+    {q:"Untuk pindah screen digunakan?",a:"A",options:{A:"Open Another Screen",B:"GoScreen",C:"ScreenSwitch",D:"Open Page"}},
+    {q:"Untuk menyimpan data kecil?",a:"A",options:{A:"TinyDB",B:"Firebase",C:"LocalStore",D:"MiniSave"}}
+  ]
+};
+
+// helper to generate paragraph explanations for each soal
+function generatePenjelasan(s){
+  let q = s.q.toLowerCase();
+
+  // Ambil topik utama (kata setelah "apa itu" / "adalah" / objek soal)
+  let topic = "konsep tersebut";
+  if(q.includes("apa itu")){
+    topic = s.q.split("apa itu")[1]?.replace(/[?]/g,"").trim() || topic;
+  } else if(q.includes("adalah")){
+    topic = s.q.split("adalah")[0]?.replace(/[?]/g,"").trim() || topic;
+  } else {
+    // fallback: ambil kata kunci pertama
+    topic = s.q.replace(/[?]/g,"").split(" ")[0];
+  }
+
+  // Normalisasi topic (biar rapi)
+  topic = topic.charAt(0).toUpperCase() + topic.slice(1);
+
+  // Kategori pengertian
+  if(q.includes("apa itu") || q.includes("adalah") || q.includes("pengertian")){
+    return `Materi ini menjelaskan tentang ${topic}. Kamu perlu memahami definisi dasarnya, bagaimana konsep ini digunakan, serta peran pentingnya dalam konteks materi yang dipelajari.`;
+  }
+  // Kategori fungsi
+  if(q.includes("fungsi") || q.includes("berguna") || q.includes("digunakan untuk")){
+    return `Materi ini membahas fungsi dari ${topic}. Fokus pada bagaimana konsep ini bekerja dan manfaat apa yang diberikan dalam penerapannya.`;
+  }
+  // Perintah / query / sintaks
+  if(q.includes("query") || q.includes("perintah") || q.includes("syntax") || q.includes("keyword")){
+    return `Materi ini menjelaskan tentang penggunaan perintah yang berkaitan dengan ${topic}. Pelajari bagaimana cara penulisannya dan apa hasil yang dihasilkan dari perintah tersebut.`;
+  }
+  // Komponen
+  if(q.includes("komponen") || q.includes("bagian") || q.includes("elemen")){
+    return `Materi ini membahas komponen ${topic} dan fungsinya. Pahami peran tiap komponen agar dapat digunakan secara tepat dalam aplikasi.`;
+  }
+  // Tipe data
+  if(q.includes("tipe data") || q.includes("jenis") || q.includes("format")){
+    return `Materi ini menjelaskan karakteristik dari ${topic}. Penting untuk mengetahui bagaimana tipe ini digunakan dan kapan harus memilihnya.`;
+  }
+  // Relasi
+  if(q.includes("relasi") || q.includes("hubungan")){
+    return `Materi ini mengulas relasi yang melibatkan ${topic}. Pahami bagaimana hubungan ini bekerja dan mengapa penting dalam pengolahan data.`;
+  }
+
+  // Default
+  return `Materi ini memberikan penjelasan tentang ${topic} sesuai konteks soal. Bacalah dan pahami inti konsep yang sedang dipelajari.`;
+}
+
+// build materiText FROM bankSoal so it doesn't reference bankSoal before init
+const materiText = {
+  KK1: [
+    "Database adalah kumpulan data yang disusun secara sistematis sehingga memudahkan pengolahan dan pencarian informasi. Dalam praktik RPL, database menyimpan data aplikasi seperti pengguna, produk, dan transaksi. Pemahaman struktur tabel dan kolom sangat penting agar data dapat diorganisir dengan baik.",
+    "Database Management System (DBMS) adalah perangkat lunak yang digunakan untuk membuat, mengelola, dan mengakses database. Contohnya adalah MySQL yang umum dipakai pada aplikasi web. DBMS menyediakan antarmuka untuk melakukan operasi seperti menyimpan, mengambil, dan mengubah data secara aman.",
+    "Query SELECT digunakan untuk menampilkan atau mengambil data dari satu atau beberapa tabel di database. Operator dasar seperti WHERE dan JOIN sering dipadukan dengan SELECT untuk memfilter dan menggabungkan data. Memahami struktur tabel membantu menulis query SELECT yang efisien.",
+    "Primary key adalah atribut atau kombinasi atribut yang mengidentifikasi setiap baris dalam tabel secara unik. Primary key mencegah duplikasi dan memudahkan relasi antar tabel, seperti one-to-many. Pemilihan primary key yang tepat penting untuk integritas data dalam database.",
+    "phpMyAdmin adalah antarmuka berbasis web yang memudahkan pengelolaan database MySQL tanpa perlu baris perintah. Dengan phpMyAdmin, pengguna dapat membuat tabel, menjalankan query, dan melakukan backup/restore. Alat ini berguna terutama bagi yang baru belajar administrasi database atau mengelola database di lingkungan hosting.",
+    "Tipe data INT di SQL digunakan untuk menyimpan bilangan bulat (integer) pada kolom tabel. Pemilihan tipe data yang tepat membantu efisiensi penyimpanan dan kecepatan query. Perhatikan juga rentang nilai yang diperlukan agar data tidak overflow.",
+    "Perintah INSERT digunakan untuk menambahkan baris baru ke sebuah tabel pada database. Saat menggunakan INSERT, penting untuk menyebutkan kolom yang diisi dan memastikan nilai sesuai tipe data. Penggunaan transaksi dapat membantu menjaga konsistensi ketika menambah data berkaitan.",
+    "File dengan ekstensi .sql biasanya berisi dump atau cadangan struktur dan/atau data database. File .sql dapat diimpor untuk mengembalikan struktur tabel dan data pada instance database lain. Format ini umum dipakai untuk backup dan transfer antar server.",
+    "Relasi one-to-many menggambarkan hubungan di mana satu baris pada tabel A berhubungan dengan banyak baris pada tabel B. Contoh praktisnya: satu pelanggan (customer) bisa memiliki banyak pesanan (orders). Memahami relasi membantu merancang struktur tabel yang sesuai dan query yang benar.",
+    "Klausa WHERE digunakan untuk memfilter baris yang akan diproses oleh query, seperti SELECT, UPDATE, atau DELETE. Dengan WHERE kita dapat memilih hanya baris yang memenuhi kondisi tertentu. Penggunaan indeks yang tepat dapat mempercepat eksekusi query yang melibatkan WHERE."
+  ],
+  KK2: [
+    "Arsitektur MVC (Model-View-Controller) memisahkan tanggung jawab aplikasi menjadi model, view, dan controller sehingga pengembangan dan pemeliharaan lebih mudah. Di Laravel, model mengelola data, view menampilkan antarmuka, dan controller menghubungkan keduanya. Penerapan MVC membantu menjaga kode terstruktur dan scalable.",
+    "Perintah `php artisan make:controller` adalah command-line tool di Laravel untuk membuat file controller baru secara otomatis. Menggunakan artisan mempercepat alur kerja pengembangan dan menjaga konsistensi penamaan. Controller yang dihasilkan dapat langsung diisi metode untuk menangani request aplikasi.",
+    "File environment `.env` berisi konfigurasi sensitif aplikasi seperti koneksi database, kunci aplikasi, dan mode debug. File ini tidak seharusnya di-commit ke repositori publik karena memuat kredensial. Menjaga konfigurasi lewat `.env` memudahkan pengaturan berbeda antara lingkungan development dan production.",
+    "Perintah `php artisan migrate` menjalankan migration yang mengubah struktur database seperti membuat atau mengubah tabel. Migration memungkinkan tim mengelola versi struktur database secara teratur. Dengan migration, perubahan schema dapat dipindahkan antar environment dengan aman.",
+    "Folder `resources/views` adalah tempat menyimpan template Blade pada Laravel yang digunakan untuk merender tampilan. Template memisahkan logika presentasi dari logika aplikasi sehingga lebih mudah dikembangkan. Blade menyediakan sintaks sederhana untuk menampilkan data dan meng-include komponen.",
+    "Eloquent ORM adalah lapisan model di Laravel yang mempermudah interaksi dengan database menggunakan model PHP. Dengan Eloquent, tabel direpresentasikan sebagai class dan record sebagai instance sehingga operasi CRUD menjadi lebih intuitif. Eloquent juga mendukung relasi antar model seperti hasMany dan belongsTo.",
+    "Routing GET biasanya didefinisikan di file `routes/web.php` untuk menangani request HTTP GET yang mengembalikan tampilan atau data. Menempatkan route di file yang benar memudahkan pengelolaan endpoint aplikasi. Routing yang jelas membantu menjaga keamanan dan struktur aplikasi.",
+    "Middleware pada Laravel berfungsi sebagai lapisan yang menyaring request sebelum mencapai controller, misalnya autentikasi atau validasi. Dengan middleware, logika cross-cutting dapat ditempatkan terpisah sehingga controller tetap fokus pada tugasnya. Penggunaan middleware meningkatkan kepatuhan terhadap pola desain dan keamanan.",
+    "Blade adalah template engine Laravel yang menggunakan file berekstensi `.blade.php` untuk membuat tampilan dinamis. Blade menyediakan directive seperti `@if` dan `@foreach` yang memudahkan rendering kondisi dan iterasi. Penggunaan Blade membantu menulis tampilan yang bersih dan terstruktur.",
+    "Migration adalah mekanisme untuk mendefinisikan dan mengubah struktur tabel database secara versioned sehingga tim dapat mensinkronisasi schema antar environment. Migration memudahkan rollback perubahan bila diperlukan. Praktik penggunaan migration mendukung workflow tim yang teratur dan aman."
+  ],
+  KK3: [
+    "Kotlin adalah bahasa pemrograman modern yang dikembangkan oleh JetBrains, dirancang agar interoperable dengan Java dan cocok untuk pengembangan Android. Kotlin menawarkan sintaks yang lebih ringkas dan fitur-fitur modern seperti null-safety. Memahami dasar Kotlin membantu membuat aplikasi Android yang lebih aman dan efisien.",
+    "Tipe data pecahan seperti Double digunakan untuk menyimpan angka desimal yang membutuhkan presisi. Pilih tipe data sesuai kebutuhan presisi dan jangkauan nilai. Mengetahui perbedaan antara Double dan Float membantu menghindari kesalahan pembulatan.",
+    "Keyword `fun` digunakan di Kotlin untuk mendeklarasikan fungsi yang menampung logika dan dapat dipanggil dari bagian lain program. Fungsi adalah blok kode reusable yang membuat program lebih modular. Memahami struktur fungsi membantu menulis kode yang terorganisir.",
+    "Keyword `val` menandai variabel yang immutable (tidak dapat diubah setelah inisialisasi), berguna untuk konstanta atau nilai yang tidak seharusnya berubah. Penggunaan `val` meningkatkan keamanan kode terhadap perubahan tidak sengaja. Pilih `val` bila nilai tidak perlu dimodifikasi.",
+    "Keyword `var` menandai variabel yang mutable (dapat diubah), berguna untuk menyimpan state yang berubah seiring waktu. Perbedaan antara `var` dan `val` penting dipahami agar manajemen state program berjalan benar. Gunakan `var` bila variable perlu diassign ulang.",
+    "Class merupakan blueprint untuk membuat objek yang mengemas data dan perilaku bersama-sama; di Kotlin class digunakan untuk merepresentasikan entitas dalam aplikasi. Menggunakan class membantu menerapkan konsep OOP seperti enkapsulasi dan pewarisan. Desain class yang baik memudahkan pemeliharaan kode.",
+    "Operator perbandingan `==` dalam Kotlin digunakan untuk membandingkan nilai objek sedangkan `===` mengecek referensi objek. Memahami perbedaan ini penting agar pemeriksaan kondisi dilakukan sesuai yang diinginkan. Operator perbandingan banyak dipakai pada struktur kontrol seperti if.",
+    "Fungsi `main()` adalah titik masuk (entry point) program Kotlin yang dipanggil saat aplikasi dijalankan, terutama pada aplikasi konsol. Pada pengembangan Android, struktur entry point berbeda, namun memahami `main()` membantu mempelajari alur eksekusi program. Penempatan logika awal di `main()` membantu debugging dan testing.",
+    "Struktur percabangan `if` digunakan untuk menjalankan blok kode berdasarkan kondisi tertentu dan merupakan dasar pengambilan keputusan dalam program. Memahami penggunaan if serta varian else-if membuat alur program menjadi dinamis. Penggunaan percabangan yang tepat mencegah terjadinya bug logika.",
+    "Perulangan `for` digunakan untuk mengiterasi koleksi atau rentang nilai sehingga operasi repetitive dapat dijalankan secara efisien. Mengetahui berbagai tipe perulangan membantu memilih yang paling sesuai untuk kasus tertentu. Perulangan juga sering dipadukan dengan koleksi untuk memproses banyak data."
+  ],
+  MP: [
+    "Kodular adalah platform no-code yang memungkinkan pembuatan aplikasi Android melalui antarmuka visual berbasis blok, cocok untuk pemula yang ingin membuat aplikasi tanpa menulis banyak kode. Kodular mempermudah pembuatan UI dan logika dengan drag-and-drop. Hasilnya dapat diekspor menjadi file APK untuk instalasi di perangkat Android.",
+    "Kodular menggunakan pendekatan block programming sehingga pengguna merangkai logika aplikasi seperti puzzle; ini menurunkan hambatan teknis bagi pembuat aplikasi pemula. Menguasai konsep block dan event-driven programming sangat membantu saat membuat aplikasi interaktif. Kodular ideal untuk prototyping dan pembelajaran konsep dasar aplikasi.",
+    "Label adalah komponen dasar untuk menampilkan teks di interface aplikasi; gunakan Label untuk memberi informasi atau judul pada layar. Pemilihan ukuran dan posisi Label membantu meningkatkan keterbacaan UI. Label sering dikombinasikan dengan komponen lain seperti Button untuk menunjang interaksi pengguna.",
+    "Button adalah komponen utama untuk aksi klik yang memicu peristiwa atau logika dalam aplikasi; misalnya tombol submit untuk mengirim data. Pahami event handler yang terikat pada Button agar aksi berjalan sesuai harapan. Desain tombol yang jelas membantu pengalaman pengguna.",
+    "Tab Logika (Blocks) di Kodular adalah tempat menyusun alur program secara visual, dimana komponen-komponen UI dihubungkan dengan aksi. Di sini kamu membuat reaksi terhadap event seperti klik tombol atau perubahan data. Mengorganisir blok dengan rapi memudahkan debugging dan pengembangan fitur.",
+    "Format output Kodular biasanya berupa file APK yang dapat diinstal di perangkat Android; proses export mengemas seluruh aset dan logika aplikasi menjadi paket aplikasi. Kenali pengaturan build untuk mengoptimalkan ukuran dan kompatibilitas APK. Setelah build, APK dapat diuji pada perangkat fisik atau emulator.",
+    "ListView adalah komponen untuk menampilkan daftar data yang dapat di-scroll, berguna untuk menampilkan banyak item seperti daftar kontak atau produk. Memahami pengisian data dan event pada ListView membantu membuat tampilan yang responsif. ListView sering dipadukan dengan penyimpanan lokal atau server untuk sumber datanya.",
+    "Komponen Image digunakan untuk menampilkan gambar pada antarmuka; pastikan gambar dioptimalkan ukurannya agar aplikasi tetap ringan. Penggunaan Image mendukung visualisasi informasi dan mempercantik tampilan aplikasi. Manajemen aset gambar penting agar distribusi APK tetap efisien.",
+    "Untuk berpindah screen di Kodular, fungsi Open Another Screen memungkinkan navigasi antar layar aplikasi; desain navigasi yang baik memudahkan alur pengguna. Perhatikan penanganan state saat berpindah screen agar data tetap konsisten. Praktik navigasi yang tepat membuat pengalaman aplikasi lebih mulus.",
+    "TinyDB adalah penyimpanan lokal ringan pada Kodular untuk menyimpan data kecil seperti preferensi pengguna atau status aplikasi. TinyDB berguna untuk menyimpan informasi yang harus bertahan antar sesi aplikasi tanpa server. Gunakan TinyDB untuk data sederhana dan cepat diakses."
+  ]
+};
+
+// --- state ---
+let currentMapel = null;
+let currentSoal = 1; // materi number
+let kuisNomor = 1; // kuis question number
+let jawabanUser = []; // array length 10 per mapel, stores 'A'/'B' etc
+
+// --- helpers untuk localStorage ---
+function storageKeyAnswers(mapel){return `rpl_${mapel}_answers`;}
+function storageKeyScore(mapel){return `rpl_${mapel}_score`;}
+
+function loadAnswers(mapel){
+  const raw = localStorage.getItem(storageKeyAnswers(mapel));
+  if(!raw) return Array(10).fill(null);
+  try{ const parsed = JSON.parse(raw); if(Array.isArray(parsed)) return parsed.concat(Array(10-parsed.length).fill(null)).slice(0,10); }
+  catch(e){}
+  return Array(10).fill(null);
+}
+function saveAnswers(mapel,arr){ localStorage.setItem(storageKeyAnswers(mapel), JSON.stringify(arr)); }
+function saveScore(mapel,score){ localStorage.setItem(storageKeyScore(mapel), JSON.stringify({score,ts:Date.now()})); }
+
+// --- navigation ---
+function showHome(){ document.getElementById('home').style.display='block'; document.getElementById('materiArea').innerHTML=''; window.scrollTo({top:0,behavior:'smooth'}); }
+
+function startMapel(mapel){
+  currentMapel = mapel;
+  currentSoal = 1;
+  kuisNomor = 1;
+  jawabanUser = loadAnswers(mapel);
+  document.getElementById('home').style.display='none';
+  tampilMateri();
+}
+
+function tampilMateri(){
+  const area = document.getElementById('materiArea');
+  const arr = materiText[currentMapel];
+  const materi = Array.isArray(arr) ? (arr[currentSoal-1] || 'Materi belum diisi.') : (arr || 'Materi belum diisi.');
+  area.innerHTML = `
+    <div class='materi-box fade-page'>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap">
+        <h2 style='margin:0'>${currentMapel} - Materi</h2>
+        <button class='primary btn' onclick="showHome()">Kembali</button>
+      </div>
+
+      <h3 style='margin-top:14px'>Penjelasan Materi (Soal ${currentSoal})</h3>
+      <div class='materi-teks'>${materi}</div>
+
+      <div class='nav-buttons'>
+        ${currentSoal>1?"<button class='btn ghost' onclick='prevMateri()'>← Kembali</button>":""}
+        ${currentSoal<10?"<button class='btn primary' onclick='nextMateri()'>Lanjut →</button>":"<button class='btn primary' onclick='mulaiKuis()'>Mulai Kuis ▶</button>"}
+      </div>
+    </div>`;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function nextMateri(){ if(currentSoal<10){ currentSoal++; tampilMateri(); } }
+function prevMateri(){ if(currentSoal>1){ currentSoal--; tampilMateri(); } }
+
+// --- kuis per soal (CBT) ---
+function mulaiKuis(){ kuisNomor = 1; jawabanUser = loadAnswers(currentMapel); tampilKuis(); }
+
+function tampilKuis(){
+  const soal = bankSoal[currentMapel][kuisNomor-1];
+  const area = document.getElementById('materiArea');
+  const saved = jawabanUser[kuisNomor-1];
+  let opsiHTML = '';
+  for(const k of Object.keys(soal.options)){
+    const checked = saved === k ? 'checked' : '';
+    opsiHTML += `<div style="margin:6px 0"><label><input type='radio' name='opsi' value='${k}' ${checked}> ${k}. ${soal.options[k]}</label></div>`;
+  }
+
+  const tombol = kuisNomor < 10
+    ? `<button class='btn primary' onclick='nextKuis()'>Lanjut →</button>`
+    : `<button class='btn primary' onclick='selesaiKuis()'>Selesai & Lihat Nilai</button>`;
+
+  area.innerHTML = `
+  <div class='quiz-box fade-page'>
+    <h3>Kuis ${currentMapel} — Soal ${kuisNomor}</h3>
+    <p>${soal.q}</p>
+    ${opsiHTML}
+    <div class='nav-buttons'>
+      ${kuisNomor>1?"<button class='btn ghost' onclick='prevKuis()'>← Kembali</button>":""}
+      ${tombol}
+    </div>
+  </div>`;
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function saveCurrentAnswer(){
+  const p = document.querySelector("input[name='opsi']:checked");
+  jawabanUser[kuisNomor-1] = p ? p.value : null;
+  saveAnswers(currentMapel, jawabanUser);
+}
+
+function nextKuis(){ saveCurrentAnswer(); if(kuisNomor<10){ kuisNomor++; tampilKuis(); } }
+function prevKuis(){ saveCurrentAnswer(); if(kuisNomor>1){ kuisNomor--; tampilKuis(); } }
+
+function selesaiKuis(){ saveCurrentAnswer();
+  const soalSet = bankSoal[currentMapel];
+  let benar = 0;
+  let pembahasanHTML = '';
+  soalSet.forEach(function(s,i){
+    const user = jawabanUser[i];
+    if(user === s.a) { benar++; }
+    else {
+      pembahasanHTML += `
+        <div style='margin:10px 0;padding:10px;border-left:4px solid #c92a2a;background:#ffecec;border-radius:6px;text-align:left'>
+          <b>❌ Soal ${i+1}</b><br>
+          Jawaban anda: <b>${user ?? '(belum menjawab)'}</b><br>
+          Jawaban yang benar: <b>${s.a}. ${s.options[s.a]}</b>
+        </div>`;
+    }
+  });
+
+  const persen = Math.round((benar/soalSet.length)*100);
+  saveScore(currentMapel, {score: benar, percent: persen});
+  const title = nilaiTitle(benar, soalSet.length);
+  const emoji = nilaiEmoji(benar, soalSet.length);
+  showPopup(title, `Kamu menjawab benar ${benar}/${soalSet.length}`, emoji, `${persen}%`, pembahasanHTML);
+}
+
+function nilaiTitle(benar,total){ if(benar <= Math.floor(total*0.4)) return 'Tetap Semangat!'; if(benar <= Math.floor(total*0.8)) return 'Bagus!'; return 'Hebat!'; }
+function nilaiEmoji(benar,total){ if(benar <= Math.floor(total*0.4)) return '😿'; if(benar <= Math.floor(total*0.8)) return '🎉'; return '🏆'; }
+
+function showPopup(title,msg,emoji,extra,pembahasan){
+  const existing = document.querySelector('.ucapan-card'); 
+  if(existing) existing.remove();
+
+  const card = document.createElement('div');
+  card.className = 'ucapan-card';
+
+  const emojiDiv = document.createElement('div');
+  emojiDiv.className = 'ucapan-emoji';
+  emojiDiv.textContent = emoji;
+  card.appendChild(emojiDiv);
+
+  const h3 = document.createElement('h3');
+  h3.textContent = title;
+  card.appendChild(h3);
+
+  const p = document.createElement('p');
+  p.style.margin = '6px 0';
+  p.style.fontWeight = '700';
+  p.textContent = msg;
+  card.appendChild(p);
+
+  const scoreP = document.createElement('p');
+  scoreP.style.color = 'var(--muted)';
+  scoreP.innerHTML = 'Skor: <strong>' + extra + '</strong>';
+  card.appendChild(scoreP);
+
+  if(pembahasan){
+    const wrap = document.createElement('div');
+    wrap.style.textAlign = 'left';
+    wrap.style.marginTop = '14px';
+
+    const h4 = document.createElement('h4');
+    h4.textContent = 'Pembahasan:';
+    wrap.appendChild(h4);
+
+    const bub = document.createElement('div');
+    bub.innerHTML = pembahasan;
+    wrap.appendChild(bub);
+
+    card.appendChild(wrap);
+  }
+
+  const btnWrap = document.createElement('div');
+  btnWrap.style.marginTop = '16px';
+
+  const closeBtn = document.createElement('button');
+  closeBtn.className = 'primary btn';
+  closeBtn.style.width = '100%';
+  closeBtn.textContent = 'Tutup';
+  closeBtn.onclick = () => card.remove();
+  btnWrap.appendChild(closeBtn);
+
+  const backBtn = document.createElement('button');
+  backBtn.className = 'ghost btn';
+  backBtn.style.marginTop = '8px';
+  backBtn.style.width = '100%';
+  backBtn.textContent = 'Kembali ke Home';
+  backBtn.onclick = () => {
+    card.remove();
+    showHome();
+  };
+  btnWrap.appendChild(backBtn);
+
+  card.appendChild(btnWrap);
+  document.body.appendChild(card);
+}
+
+
+// initialize home view
+showHome();
+</script>
+
+<footer>
+  <h3>SOSIAL MEDIA</h3>
+  <div class="sosmed">
+    <a href="https://wa.me/085655932676" target="_blank"><img src="wa.png" alt="wa"/></a>
+    <a href="https://instagram.com/tfk21_" target="_blank"><img src="ig.png" alt="ig"/></a>
+    <a href="https://tiktok.com/@tfqwyyz21_" target="_blank"><img src="t.png" alt="tiktok"/></a>
+  </div>
+  <p style="margin-top:10px;opacity:.95">© Moch Taufiqur Rohman 2025</p>
+</footer>
+</body>
+</html>
